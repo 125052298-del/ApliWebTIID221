@@ -54,5 +54,3 @@ h1{color: blue;}
 
 </body>
 </html>
-
-
