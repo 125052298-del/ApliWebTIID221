@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Noticiero</title>
+<style>
+ * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #2d3748;
+        }
+
+        .examen {
+            width: 100%;
+        }
+
+        .eXamen-header {
+            background-color: beige;
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr) 190px;
+            align-items: center;
+            gap: 32px;
+            padding: 30px 40px;
+        }
+
+        .foto {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 230px;
+            height: 130px;
+            padding: 10px;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .titulo {
+            font-size: 38px;
+            font-weight: 800;
+            color: #1a202c;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+            text-align: center;
+        }
+
+        .foto img {
+            display: block;
+            width: 82px;
+            height: 82px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .foto p {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .secciones {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 16px;
+        }
+
+        .fecha {
+            justify-self: end;
+            width: 100%;
+            padding: 18px 22px;
+            border: 2px solid #2d3748;
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+        }
+
+        .fecha hr {
+            margin: 12px 0;
+            border: 0;
+            border-top: 1px solid #2d3748;
+        }
+
+        .fecha .detalles {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 15px;
+        }
+
+        .barra-navegacion {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            padding: 12px 28px;
+            background: #234e70;
+        }
+
+        .barra-navegacion span {
+            padding: 9px 18px;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .contenido {
+            display: grid;
+            grid-template-columns: minmax(220px, 0.85fr) minmax(320px, 1.5fr) minmax(260px, 1.35fr);
+            grid-template-rows: 260px 260px;
+            gap: 20px;
+            padding: 24px;
+        }
+
+        .noticia {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
+            border: 2px solid #cbd5e0;
+            background: #f8fafc;
+        }
+
+        .noticia-principal {
+            grid-column: 1;
+            grid-row: 1 / 3;
+            padding: 12px;
+        }
+
+        .lista-noticias {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            gap: 12px;
+        }
+
+        .noticia-lateral-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 0;
+            flex: 1;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 8px;
+        }
+
+        .noticia-lateral-item:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .noticia-lateral-item img {
+            width: 76px;
+            height: 76px;
+            flex: 0 0 76px;
+            object-fit: cover;
+        }
+
+        .noticia-lateral-item h2 {
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .noticia-lateral-item p {
+            font-size: 13px;
+            line-height: 1.35;
+        }
+
+        .noticia-central {
+            grid-column: 2;
+            grid-row: 1 / 3;
+            align-self: center;
+            justify-self: center;
+            width: min(100%, 460px);
+            height: min(100%, 460px);
+        }
+
+        .noticias-derecha {
+            display: grid;
+            grid-column: 3;
+            grid-row: 1 / 3;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .noticias-derecha-inferior {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .marco-imagen {
+            position: relative;
+            display: flex;
+            flex: 1;
+            min-height: 0;
+            background: #e2e8f0;
+        }
+
+        .imagen-noticia {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            flex: 1;
+            object-fit: cover;
+            background: #e2e8f0;
+        }
+
+        .editor-noticia {
+            padding: 14px;
+        }
+
+        .editor-noticia h2 {
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+
+        .editor-noticia p {
+            min-height: 42px;
+            line-height: 1.45;
+        }
+
+        @media (max-width: 900px) {
+            .eXamen-header {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                padding: 24px;
+            }
+
+            .titulo {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                font-size: 32px;
+            }
+
+            .secciones {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .fecha {
+                grid-column: 2;
+                grid-row: 1;
+            }
+
+            .foto {
+                width: 100%;
+            }
+
+            .contenido {
+                grid-template-columns: 1fr;
+                grid-template-rows: 360px 380px 500px;
+                gap: 12px;
+                padding: 12px;
+            }
+
+            .noticia-principal {
+                grid-column: 1;
+                grid-row: auto;
+                width: 100%;
+            }
+
+            .noticia-lateral-item img {
+                width: 62px;
+                height: 62px;
+                flex-basis: 62px;
+            }
+
+            .noticias-derecha {
+                grid-column: 1;
+                grid-row: auto;
+                grid-template-rows: 260px 220px;
+                gap: 12px;
+            }
+
+            .noticia-central {
+                grid-column: 1;
+                grid-row: auto;
+                width: min(100%, 380px);
+                height: 380px;
+            }
+
+            .noticias-derecha-inferior {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-rows: 1fr;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 460px) {
+            .eXamen-header {
+                grid-template-columns: 1fr;
+            }
+
+            .foto,
+            .fecha,
+            .titulo {
+                grid-column: 1;
+                grid-row: auto;
+            }
+
+            .foto {
+                width: 100%;
+            }
+
+            .noticia-lateral-item img {
+                width: 56px;
+                height: 56px;
+                flex-basis: 56px;
+            }
+
+            .noticia-lateral-item h2 {
+                font-size: 14px;
+            }
+
+            .noticia-lateral-item p {
+                font-size: 12px;
+            }
+
+            .contenido {
+                grid-template-columns: 1fr;
+                grid-template-rows: 360px 300px 720px;
+            }
+
+            .noticia-principal,
+            .noticia-central {
+                grid-column: 1;
+                grid-row: auto;
+                width: 100%;
+            }
+
+            .noticia-central {
+                width: min(100%, 300px);
+                height: 300px;
+                justify-self: center;
+            }
+
+            .noticias-derecha {
+                grid-column: 1;
+                grid-row: auto;
+                grid-template-rows: 240px 468px;
+            }
+
+            .noticias-derecha-inferior {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+</style>
+</head>
+<body>
+
+ <div class="examen">
+        <!-- HEADER -->
+        <header class="eXamen-header">
+        
+            <div class="foto">
+                <img src="img/4.png" alt="Imagen de noticias">
+                <p>NOTICIAS</p>
+            </div>
+            <div class="titulo">
+                <h1>EL NOTICIERO</h1>
+                <div class="secciones">
+                    <h4>Informacion</h4>
+                    <h4>Actualidad</h4>
+                    <h4>Tu Diario</h4>
+                </div>
+            </div>
+            <div class="fecha">
+                <p>08 de octubre de 2026</p>
+                <hr>
+                <div class="detalles">
+                    <p>Año XX</p>
+                    <p>Código postal: XXXXX</p>
+                </div>
+            </div>
+        </header>
+
+        <nav class="barra-navegacion" aria-label="Secciones del noticiero">
+            <span>Inicio</span>
+            <span>Mundo</span>
+            <span>Nacional</span>
+            <span>Economía</span>
+            <span>Deportes</span>
+            <span>Tecnología</span>
+            <span>Cultura</span>
+        </nav>
+
+        <main class="contenido">
+            <article class="noticia noticia-principal" id="inicio">
+                <div class="lista-noticias">
+                    <div class="noticia-lateral-item">
+                        <img src="img/4.png" alt="Imagen de noticia">
+                        <div>
+                            <h2>Título de noticia</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                    </div>
+                    <div class="noticia-lateral-item">
+                        <img src="img/4.png" alt="Imagen de noticia">
+                        <div>
+                            <h2>Título de noticia</h2>
+                            <p>Vestibulum ante ipsum primis in faucibus orci luctus.</p>
+                        </div>
+                    </div>
+                    <div class="noticia-lateral-item">
+                        <img src="img/4.png" alt="Imagen de noticia">
+                        <div>
+                            <h2>Título de noticia</h2>
+                            <p>Quisque eget nunc vel justo consequat gravida.</p>
+                        </div>
+                    </div>
+                    <div class="noticia-lateral-item">
+                        <img src="img/4.png" alt="Imagen de noticia">
+                        <div>
+                            <h2>Título de noticia</h2>
+                            <p>Integer vitae sapien sed sem tempor facilisis.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="noticia noticia-central" id="economia">
+                <div class="marco-imagen">
+                    <img class="imagen-noticia" src="img/3.png" alt="Imagen de la noticia central">
+                </div>
+                <div class="editor-noticia">
+                    <h2>Título de noticia central</h2>
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+                </div>
+            </article>
+
+            <section class="noticias-derecha" aria-label="Más noticias">
+                <article class="noticia noticia-horizontal" id="mundo">
+                    <div class="marco-imagen">
+                        <img class="imagen-noticia" src="img/4.png" alt="Imagen de la noticia horizontal">
+                    </div>
+                    <div class="editor-noticia">
+                        <h2>Título de otra noticia</h2>
+                        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; aliquam erat volutpat.</p>
+                    </div>
+                </article>
+                <div class="noticias-derecha-inferior">
+                    <article class="noticia noticia-cuadrada" id="nacional">
+                        <div class="marco-imagen">
+                            <img class="imagen-noticia" src="img/4.png" alt="Imagen de la noticia nacional">
+                        </div>
+                        <div class="editor-noticia">
+                            <h2>Título de noticia</h2>
+                            <p>Quisque eget nunc vel justo consequat gravida. Integer vitae sapien sed sem tempor facilisis.</p>
+                        </div>
+                    </article>
+                    <article class="noticia noticia-cuadrada" id="cultura">
+                        <div class="marco-imagen">
+                            <img class="imagen-noticia" src="img/4.png" alt="Imagen de noticia adicional">
+                        </div>
+                        <div class="editor-noticia">
+                            <h2>Otra noticia</h2>
+                            <p>Integer vitae sapien sed sem tempor facilisis.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+ </div>
+</body>
+</html>
