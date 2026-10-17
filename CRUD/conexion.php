@@ -6,7 +6,7 @@ function conectar() {
     $user = "root";
     $pass = "";
 
-    /* Base de datos */
+    /* Base de datos     */
     $db = "aw221";
 
     /* Nos conectamos a la base de datos con mysqli_connect() */
