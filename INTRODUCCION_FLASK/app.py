@@ -1,42 +1,42 @@
-#importamos los paquetes flask
+#Importamos paquetes de flask
 from flask import Flask, render_template, request
 
+#importacion para generar hash y comprobar si la contra coincide con el hash
+from werkzeug.security import generate_password_hash
+
+#Creamos instancia de la app
 app = Flask(__name__)
-app.config['MySQL_HOST'] = 'localhost'
-app.config['MySQL_USER'] = 'root'
-app.config['MySQL_PASSWORD'] = ''
-app.config['MySQL_DB'] = 'FlaskDB'
+
+#Configuracion de la conexion
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'flaskdb'
 app.secret_key = 'mysecretkey'
-app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 
-@app.route("/", methods=["GET", "POST"])
+
+
+#RUTA
+
+@app.route("/")
 def home():
-    message = None
-    if request.method == "POST":
-        message = "El inicio de sesión todavía no está conectado a una base de datos."
+    return render_template("login.html")
 
-    return render_template("login.html", message=message)
-
-
-@app.route("/registro", methods=["GET", "POST"])
+@app.route("/registro", methods=["GET","POST"])
 def registro():
-    message = None
+
     if request.method == "POST":
-        required_fields = (
-            "nombre",
-            "apellido_p",
-            "apellido_m",
-            "correo",
-            "password",
-            "id_rol",
-        )
-        if any(not request.form.get(field, "").strip() for field in required_fields):
-            message = "Completa todos los campos del formulario de registro."
-        else:
-            message = "El registro todavía no está conectado a una base de datos; no se guardaron los datos."
+        nombre = request.form["nombre"]
+        apellido_p = request.form["apellido_p"]
+        apellido_m = request.form["apellido_m"]
+        correo = request.form["correo"]
+        password_hash = request.form["password_hash"]
+        id_rol = request.form["id_rol"]
 
-    return render_template("login.html", message=message)
 
+        password_hasheada = generate_password_hash(password_hash)
+
+#Iniciamos servidor Flask en el puerto 5000
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(port=5000)
