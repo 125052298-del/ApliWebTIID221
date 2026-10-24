@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de sesión y registro</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <main>
+        <h1>Iniciar sesión</h1>
+
+        {% if message %}
+            <p role="status">{{ message }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('home') }}" method="post">
+            <div>
+                <label for="login-correo">Correo:</label>
+                <input type="email" name="correo" id="login-correo" autocomplete="email" required>
+            </div>
+            <div>
+                <label for="login-password">Contraseña:</label>
+                <input type="password" name="password" id="login-password" autocomplete="current-password" required>
+            </div>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+
+        <h2>Registro</h2>
+        <form action="{{ url_for('registro') }}" method="post">
+            <div>
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" autocomplete="given-name" required>
+            
+                <label for="apellido-p">Apellido paterno:</label>
+                <input type="text" name="apellido_p" id="apellido-p" required>
+            
+                <label for="apellido-m">Apellido materno:</label>
+                <input type="text" name="apellido_m" id="apellido-m" required>
+            
+                <label for="registro-correo">Correo:</label>
+                <input type="email" name="correo" id="registro-correo" autocomplete="email" required>
+            
+                <label for="registro-password">Contraseña:</label>
+                <input type="password" name="password" id="registro-password" autocomplete="new-password" required>
+        
+                <label for="id-rol">ID de rol:</label>
+                <input type="number" name="id_rol" id="id-rol" min="1" required>
+            </div>
+            <button type="submit">Registrarse</button>
+        </form>
+    </main>
+</body>
+</html>
