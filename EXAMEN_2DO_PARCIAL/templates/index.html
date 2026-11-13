@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Tareas</title>
+</head>
+<body>
+    <div>
+        <h1>GESTIÓN DE TAREAS</h1>
+
+        {% with mesajes = get_flashed_messages() %}
+            {% if mesajes %}
+                {% for msj in mesajes %}
+                    <h3>{{ msj }}</h3>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/guardar" method="POST">
+            <input type="text" name="txtTitulo" placeholder="Escribe el título" required>
+            <input type="text" name="txtDescripcion" placeholder="Escribe la descripción" required>
+            <input type="date" name="txtFechaLimite" required>
+            <select name="txtPrioridad" required>
+                <option value="" disabled selected>Selecciona la prioridad</option>
+                <option value="baja">Baja</option>
+                <option value="media">Media</option>
+                <option value="alta">Alta</option>
+            </select>
+            <select name="txtEstado" required>
+                <option value="" disabled selected>Selecciona el estado</option>
+                <option value="completado">Completado</option>
+                <option value="incompleto">Incompleto</option>
+            </select>
+            <button type="submit">Guardar</button>
+        </form>
+
+        <br>
+
+        <table>
+            <thead>
+                <tr>
+                    <td>Id:</td>
+                    <td>Título:</td>
+                    <td>Descripción:</td>
+                    <td>Fecha límite:</td>
+                    <td>Prioridad:</td>
+                    <td>Estado:</td>
+                    <td>Acciones:</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tarea in listTareas %}
+                <tr>
+                    <td>{{ tarea.0 }}</td>
+                    <td>{{ tarea.1 }}</td>
+                    <td>{{ tarea.2 }}</td>
+                    <td>{{ tarea.3 }}</td>
+                    <td>{{ tarea.4 }}</td>
+                    <td>{{ tarea.5 }}</td>
+                    <td>
+                        <a href="/editar/{{ tarea.0 }}">Editar</a>
+                        <a href="/eliminar/{{ tarea.0 }}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
