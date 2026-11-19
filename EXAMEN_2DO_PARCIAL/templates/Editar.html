@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tareas</title>
+</head>
+<body>
+    <div>
+        <h1>Tarea a editar</h1>
+        <form action="/actualizar/{{ Tarea.0 }}" method="POST">
+            <input type="text" name="txtTitulo" value="{{ Tarea.1 }}">
+            <input type="text" name="txtDescripcion" value="{{ Tarea.2 }}">
+            <input type="date" name="txtFechaLimite" value="{{ Tarea.3 }}">
+            <select name="txtPrioridad">
+                <option value="baja" {% if Tarea.4 == 'baja' %}selected{% endif %}>Baja</option>
+                <option value="media" {% if Tarea.4 == 'media' %}selected{% endif %}>Media</option>
+                <option value="alta" {% if Tarea.4 == 'alta' %}selected{% endif %}>Alta</option>
+            </select>
+            <select name="txtEstado">
+                <option value="completado" {% if Tarea.5 == 'completado' %}selected{% endif %}>Completado</option>
+                <option value="incompleto" {% if Tarea.5 == 'incompleto' %}selected{% endif %}>Incompleto</option>
+            </select>
+            <button type="submit">Actualizar</button>
+        </form>
+    </div>
+</body>
+</html>

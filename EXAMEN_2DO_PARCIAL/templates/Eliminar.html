@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Tarea</title>
+</head>
+<body>
+    <div>
+        <h1>Tarea a eliminar</h1>
+        <form action="/eliminar/{{ Tarea.0 }}" method="POST">
+            <input type="text" name="txtTitulo" value="{{ Tarea.1 }}">
+            <input type="text" name="txtDescripcion" value="{{ Tarea.2 }}">
+            <input type="date" name="txtFechaLimite" value="{{ Tarea.3 }}">
+            <input type="text" name="txtPrioridad" value="{{ Tarea.4 }}">
+            <input type="text" name="txtEstado" value="{{ Tarea.5 }}">
+            <button type="submit" onclick="return Eliminar()">Eliminar</button>
+            <button type="button" onclick="Regresar()">Regresar</button>
+        </form>
+        <script>
+            function Eliminar(){
+                return confirm("¿Estás seguro de que deseas eliminar esta tarea?");
+            }
+            function Regresar(){
+                window.location.href = "{{ url_for('index') }}";
+            }
+        </script>
+    </div>
+</body>
+</html>

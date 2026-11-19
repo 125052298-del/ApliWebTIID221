@@ -42,7 +42,7 @@ def editar(id):
     con.execute('SELECT * FROM tb_tareas WHERE id = %s', (id,))
     consultarId = con.fetchone()
     con.close()
-    return render_template('editarTarea.html', Tarea=consultarId)
+    return render_template('Editar.html', Tarea=consultarId)
 
 @app.route('/actualizar/<int:id>', methods=['POST'])
 def actualizar(id):
@@ -59,21 +59,15 @@ def actualizar(id):
         flash('Se actualizó la tarea ' + titulo)
         return redirect(url_for('index'))
 
-@app.route('/eliminar/<int:id>', methods=['GET', 'POST'])
-def eliminar(id):
-    con = mysql.connection.cursor()
+@app.route('/eliminar/<int:id>', methods=['POST'])
+def eliminar():
     if request.method == 'POST':
         titulo = request.form['txtTitulo']
+        con = mysql.connection.cursor()
         con.execute('DELETE FROM tb_tareas WHERE id=%s', (id,))
         mysql.connection.commit()
-        con.close()
         flash('Se eliminó la tarea ' + titulo)
         return redirect(url_for('index'))
-    else:
-        con.execute('SELECT * FROM tb_tareas WHERE id = %s', (id,))
-        consultarId = con.fetchone()
-        con.close()
-        return render_template('eliminarTarea.html', Tarea=consultarId)
 
 if __name__ == '__main__':
     app.run(debug=True)
