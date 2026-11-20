@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="min-h-screen bg-base-200 flex items-center justify-center p-4">
+    <div class="w-full max-w-lg rounded-xl bg-base-100 p-8 shadow-lg">
+        <h1 class="mb-6 text-center text-2xl font-bold">Registro de usuarios</h1>
+        {% if error %}
+            <p class="alert alert-error mb-4">{{ error }}</p>
+        {% endif %}
+        <form action="/registro" method="POST">
+            <label class="mb-1 block font-medium">Nombre(s): </label>
+            <input class="input input-bordered mb-3 w-full" type="text" name="nombre">
+            <label class="mb-1 block font-medium">Apellido paterno: </label>
+            <input class="input input-bordered mb-3 w-full" type="text" name="apellido_p">
+            <label class="mb-1 block font-medium">Apellido materno: </label>
+            <input class="input input-bordered mb-3 w-full" type="text" name="apellido_m">
+            <label class="mb-1 block font-medium">Correo: </label>
+            <input class="input input-bordered mb-3 w-full" type="email" name="correo">
+            <label class="mb-1 block font-medium">Contraseña: </label>
+            <input class="input input-bordered mb-3 w-full" type="password" name="password">
+            <label class="mb-1 block font-medium" for="id_rol">Rol: </label>
+            <select class="select select-bordered mb-5 w-full" name="id_rol" id="id_rol">
+                <option value="1">Administrador</option>
+                <option value="2">Usuario</option>
+            </select>
+            <button class="btn btn-primary w-full" type="submit">Registrarse</button>
+        </form>
+        <p class="mt-5 text-center"><a class="link link-primary" href="{{ url_for('logout') }}">Regresar</a></p>
+    </div>
+</body>
+</html>
