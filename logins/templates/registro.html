@@ -15,15 +15,15 @@
         {% endif %}
         <form action="/registro" method="POST">
             <label class="mb-1 block font-medium">Nombre(s): </label>
-            <input class="input input-bordered mb-3 w-full" type="text" name="nombre">
+            <input class="input input-bordered mb-3 w-full" type="text" name="nombre" required>
             <label class="mb-1 block font-medium">Apellido paterno: </label>
-            <input class="input input-bordered mb-3 w-full" type="text" name="apellido_p">
+            <input class="input input-bordered mb-3 w-full" type="text" name="apellido_p" required>
             <label class="mb-1 block font-medium">Apellido materno: </label>
-            <input class="input input-bordered mb-3 w-full" type="text" name="apellido_m">
+            <input class="input input-bordered mb-3 w-full" type="text" name="apellido_m" required>
             <label class="mb-1 block font-medium">Correo: </label>
-            <input class="input input-bordered mb-3 w-full" type="email" name="correo">
+            <input class="input input-bordered mb-3 w-full" type="email" name="correo" required>
             <label class="mb-1 block font-medium">Contraseña: </label>
-            <input class="input input-bordered mb-3 w-full" type="password" name="password">
+            <input class="input input-bordered mb-3 w-full" type="password" name="password" required>
             <label class="mb-1 block font-medium" for="id_rol">Rol: </label>
             <select class="select select-bordered mb-5 w-full" name="id_rol" id="id_rol">
                 <option value="1">Administrador</option>
@@ -31,7 +31,7 @@
             </select>
             <button class="btn btn-primary w-full" type="submit">Registrarse</button>
         </form>
-        <p class="mt-5 text-center"><a class="link link-primary" href="{{ url_for('logout') }}">Regresar</a></p>
+        <p class="mt-5 text-center"><a class="link link-primary" href="{{ url_for('login') }}">Regresar</a></p>
     </div>
 </body>
 </html>
